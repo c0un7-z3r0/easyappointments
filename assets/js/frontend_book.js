@@ -103,16 +103,16 @@ window.FrontendBook = window.FrontendBook || {};
                 EALang.sunday, EALang.monday, EALang.tuesday, EALang.wednesday,
                 EALang.thursday, EALang.friday, EALang.saturday],
             dayNamesShort: [EALang.sunday.substr(0, 3), EALang.monday.substr(0, 3),
-                EALang.tuesday.substr(0, 3), EALang.wednesday.substr(0, 3),
-                EALang.thursday.substr(0, 3), EALang.friday.substr(0, 3),
-                EALang.saturday.substr(0, 3)],
+            EALang.tuesday.substr(0, 3), EALang.wednesday.substr(0, 3),
+            EALang.thursday.substr(0, 3), EALang.friday.substr(0, 3),
+            EALang.saturday.substr(0, 3)],
             dayNamesMin: [EALang.sunday.substr(0, 2), EALang.monday.substr(0, 2),
-                EALang.tuesday.substr(0, 2), EALang.wednesday.substr(0, 2),
-                EALang.thursday.substr(0, 2), EALang.friday.substr(0, 2),
-                EALang.saturday.substr(0, 2)],
+            EALang.tuesday.substr(0, 2), EALang.wednesday.substr(0, 2),
+            EALang.thursday.substr(0, 2), EALang.friday.substr(0, 2),
+            EALang.saturday.substr(0, 2)],
             monthNames: [EALang.january, EALang.february, EALang.march, EALang.april,
-                EALang.may, EALang.june, EALang.july, EALang.august, EALang.september,
-                EALang.october, EALang.november, EALang.december],
+            EALang.may, EALang.june, EALang.july, EALang.august, EALang.september,
+            EALang.october, EALang.november, EALang.december],
             prevText: EALang.previous,
             nextText: EALang.next,
             currentText: EALang.now,
@@ -234,6 +234,10 @@ window.FrontendBook = window.FrontendBook || {};
             // Add the "Any Provider" entry.
             if ($('#select-provider option').length >= 1 && GlobalVariables.displayAnyProvider === '1') {
                 $('#select-provider').append(new Option('- ' + EALang.any_provider + ' -', 'any-provider'));
+            }
+
+            if ($('#select-provider option').length <= 1 && GlobalVariables.displayOneProvider === '0') {
+                $('#select-provider').parent().hide();
             }
 
             FrontendBookApi.getUnavailableDates($('#select-provider').val(), $(this).val(),
@@ -495,6 +499,49 @@ window.FrontendBook = window.FrontendBook || {};
     }
 
     /**
+     * Generates the appointment summary html using jquery
+     * 
+     * @param {string} selectedDate  the selected date of the appointment
+     * @param {string} servicePrice  the name of the selected service
+     * @param {string} serviceCurrency  the currency of the selected service
+     * 
+     * @return {JQuery<HTMLElement>[]}
+     */
+    function generateAppointmentSummaryHtml(selectedDate,servicePrice,serviceCurrency) {
+
+        var shouldDisplayProvider =
+        GlobalVariables.displayAnyProvider == true || GlobalVariables.availableProviders.length > 1 || GlobalVariables.displayOneProvider == true
+
+        var appointmentHtml = [];
+        appointmentHtml.push($('<span/>', {
+            'text': EALang.service + ': ' + $('#select-service option:selected').text()
+        }))
+        appointmentHtml.push($('<br/>'));
+        if (shouldDisplayProvider) {
+            appointmentHtml.push($('<span/>', {
+                'text': EALang.provider + ': ' + $('#select-provider option:selected').text()
+            }))
+            appointmentHtml.push($('<br/>'));
+        }
+        appointmentHtml.push($('<span/>', {
+            'text': EALang.start + ': ' + selectedDate + ' ' + $('.selected-hour').text()
+        }))
+        appointmentHtml.push($('<br/>'));
+        appointmentHtml.push($('<span/>', {
+            'text': EALang.timezone + ': ' + $('#select-timezone option:selected').text()
+        }))
+        appointmentHtml.push($('<br/>'));
+        appointmentHtml.push($('<span/>', {
+            'text': EALang.price + ': ' + servicePrice + ' ' + serviceCurrency,
+            'prop': {
+                'hidden': !servicePrice
+            }
+        }))
+
+        return appointmentHtml;
+    }
+
+    /**
      * Every time this function is executed, it updates the confirmation page with the latest
      * customer settings and input for the appointment booking.
      */
@@ -523,41 +570,18 @@ window.FrontendBook = window.FrontendBook || {};
         });
 
         $('#appointment-details').empty();
-
+        var appointmentHtml = generateAppointmentSummaryHtml(selectedDate, servicePrice, serviceCurrency);
         $('<div/>', {
             'html': [
                 $('<h4/>', {
                     'text': EALang.appointment
                 }),
                 $('<p/>', {
-                    'html': [
-                        $('<span/>', {
-                            'text': EALang.service + ': ' + $('#select-service option:selected').text()
-                        }),
-                        $('<br/>'),
-                        $('<span/>', {
-                            'text': EALang.provider + ': ' + $('#select-provider option:selected').text()
-                        }),
-                        $('<br/>'),
-                        $('<span/>', {
-                            'text': EALang.start + ': ' + selectedDate + ' ' + $('.selected-hour').text()
-                        }),
-                        $('<br/>'),
-                        $('<span/>', {
-                            'text': EALang.timezone + ': ' + $('#select-timezone option:selected').text()
-                        }),
-                        $('<br/>'),
-                        $('<span/>', {
-                            'text': EALang.price + ': ' + servicePrice + ' ' + serviceCurrency,
-                            'prop': {
-                                'hidden': !servicePrice
-                            }
-                        }),
-                    ]
+                    'html': appointmentHtml
                 })
             ]
         })
-            .appendTo('#appointment-details');
+        .appendTo('#appointment-details');
 
         // Customer Details
         var firstName = GeneralFunctions.escapeHtml($('#first-name').val());
@@ -663,7 +687,7 @@ window.FrontendBook = window.FrontendBook || {};
         var endDatetime;
 
         if (service.duration && startDatetime) {
-            endDatetime = startDatetime.add({'minutes': parseInt(service.duration)});
+            endDatetime = startDatetime.add({ 'minutes': parseInt(service.duration) });
         } else {
             endDatetime = new Date();
         }

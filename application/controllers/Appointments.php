@@ -73,6 +73,7 @@ class Appointments extends EA_Controller {
             $display_privacy_policy = $this->settings_model->get_setting('display_privacy_policy');
             $privacy_policy_content = $this->settings_model->get_setting('privacy_policy_content');
             $display_any_provider = $this->settings_model->get_setting('display_any_provider');
+            $display_one_provider = $this->settings_model->get_setting('display_one_provider');
             $timezones = $this->timezones->to_array();
 
             // Remove the data that are not needed inside the $available_providers array.
@@ -174,6 +175,7 @@ class Appointments extends EA_Controller {
                 'privacy_policy_content' => $privacy_policy_content,
                 'timezones' => $timezones,
                 'display_any_provider' => $display_any_provider,
+                'display_one_provider' => $display_one_provider
             ];
         }
         catch (Exception $exception)

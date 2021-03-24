@@ -207,6 +207,17 @@
                                     <?= lang('display_any_provider_hint') ?>
                                 </span>
                             </div>
+                            <div class="form-group">
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" class="custom-control-input" id="display-one-provider">
+                                    <label class="custom-control-label" for="display-one-provider">
+                                        <?= lang('display_one_provider') ?>
+                                    </label>
+                                </div>
+                                <span class="help-block">
+                                    <?= lang('display_one_provider_hint') ?>
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </fieldset>
