@@ -40,7 +40,7 @@ body {
     overflow: auto;
     height: auto;
     padding: 20px 15px;
-    background: #429a82;
+    /*background: #429a82;*/
 }
 
 #book-appointment-wizard #company-name {
@@ -129,7 +129,7 @@ body {
     height: 35px;
     width: 35px;
     float: left;
-    background: #225d4d;
+    background: #E4E4E2;
     padding: 8px;
     margin-right: 12px;
     margin-top: 6px;
@@ -145,7 +145,7 @@ body {
     font-size: 12px;
     display: block;
     text-align: center;
-    color: #0bb98d;
+    color: black;
     transition: all .3s linear;
     cursor: default;
 }
@@ -159,10 +159,11 @@ body {
     padding: 7px;
     margin-right: 13px;
     margin-top: 0;
+    border: 2px solid #E4E4E2;
 }
 
 #book-appointment-wizard .active-step strong {
-    color: #429a82;
+    color: black;
     font-size: 21px;
 }
 
