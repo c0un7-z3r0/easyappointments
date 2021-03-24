@@ -164,6 +164,7 @@ $lang['company_email_hint'] = 'Das wird die E-Mail-Adresse der Firma sein. Sie w
 $lang['company_link'] = 'Weblink der Firma';
 $lang['company_link_hint'] = 'Der Firmenlink sollte auf die offizielle Webseite der Firma weisen (erforderlich).';
 $lang['go_to_booking_page'] = 'Gehe zu Buchungsseite';
+$lang['go_to_home_page'] = 'Gehe zu unserer Website';
 $lang['settings_saved'] = 'Einstellungen erfolgreich gesichert.';
 $lang['general'] = 'Allgemeines';
 $lang['business_logic'] = 'Unternehmerische Logik';

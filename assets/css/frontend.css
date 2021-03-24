@@ -78,7 +78,7 @@ body {
 
 #book-appointment-wizard .wizard-frame .frame-container {
     height: auto;
-    min-height: 500px;
+    /* min-height: 500px; */
     padding: 15px 0;
 }
 
@@ -190,9 +190,10 @@ body {
 }
 
 #book-appointment-wizard #available-hours .selected-hour {
-    background-color: #439a82;
-    border-color: #439a82;
-    color: white;
+    background-color: #E4E4E2;
+    border-color: #E4E4E2;
+    color: black;
+    font-weight: bold;
 }
 
 #book-appointment-wizard .span3 {
@@ -247,7 +248,7 @@ body {
 #book-appointment-wizard #service-description {
     overflow-y: auto;
     clear: both;
-    max-height: 153px;
+   /* max-height: 153px; */
     box-shadow: none;
 }
 
@@ -257,6 +258,10 @@ body {
     min-width: 120px;
     margin: 15px auto;
     padding: 5px;
+}
+
+#book-appointment-wizard .backend-link {
+    display: none;
 }
 
 .popover .popover-title {
@@ -275,7 +280,7 @@ body {
     #book-appointment-wizard {
         border-radius: .25rem;
         overflow: hidden;
-        box-shadow: rgba(45, 62, 80, 0.12) 0 1px 5px 0;
+        box-shadow: rgb(45 62 80 / 12%) 0px 1px 20px 20px;
     }
 
     #book-appointment-wizard #company-name {
@@ -342,6 +347,10 @@ body {
         min-width: 120px;
         padding: 5px;
         margin: 5px auto;
+    }
+    
+    #book-appointment-wizard .backend-link {
+        display: none;
     }
 }
 

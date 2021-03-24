@@ -167,6 +167,7 @@ $lang['company_email_hint'] = 'This will be the company email address. It will b
 $lang['company_link'] = 'Company Link';
 $lang['company_link_hint'] = 'Company link should point to the official website of the company (required).';
 $lang['go_to_booking_page'] = 'Go To Booking Page';
+$lang['go_to_home_page'] = 'Go To Home Page';
 $lang['settings_saved'] = 'Settings saved successfully.';
 $lang['general'] = 'General';
 $lang['business_logic'] = 'Business Logic';
